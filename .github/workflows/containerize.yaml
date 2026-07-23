@@ -25,6 +25,12 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
 
+    deploy:
+      needs: build-push
+      runs-on: self-hosted
+      steps:
+        - uses: actions/checkout@v7
+        - run: docker compose up -d --pull always
         
 permissions:
   packages: write
